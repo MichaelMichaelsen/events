@@ -1,0 +1,300 @@
+<!--
+   geodkeventshtml
+   
+   Copyright 2017 Michael Michaelsen <mmi@mmi-Aspire-M1350>
+   
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
+   
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+   
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+   MA 02110-1301, USA.
+
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+	<title>Hændelseslog (1.1)</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<script
+  src="https://code.jquery.com/jquery-3.2.1.js"
+  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+  crossorigin="anonymous"></script>
+	
+	<script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
+	 
+	<!-- Include Date Range Picker -->
+	<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+
+	<!-- Include Date Picker -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/da.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/locales/bootstrap-datepicker.da.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css" /
+
+	<!-- Include Datatable -->
+	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
+	<script type="text/javascript" language="javascript" src="//cdn.datatables.net/select/1.2.1/js/dataTables.select.min.js"></script>
+	<style type="text/css">
+#custom-bootstrap-menu.navbar-default .navbar-brand {
+    color: rgba(245, 235, 235, 1);
+}
+#custom-bootstrap-menu.navbar-default {
+    font-size: 14px;
+    background-color: rgba(87, 45, 224, 1);
+    border-bottom-width: 1px;
+}
+#custom-bootstrap-menu.navbar-default .navbar-nav>li>a {
+    color: rgba(245, 235, 235, 1);
+    background-color: rgba(248, 248, 248, 0);
+}
+#custom-bootstrap-menu.navbar-default .navbar-nav>li>a:hover,
+#custom-bootstrap-menu.navbar-default .navbar-nav>li>a:focus {
+    color: rgba(51, 51, 51, 1);
+    background-color: rgba(248, 248, 248, 0);
+    background: -webkit-linear-gradient(top, rgba(248, 248, 248, 0) 0%, rgba(248, 248, 248, 0) 100%);
+    background: linear-gradient(to bottom, rgba(248, 248, 248, 0) 0%, rgba(248, 248, 248, 0) 100%);
+}
+#custom-bootstrap-menu.navbar-default .navbar-nav>.active>a,
+#custom-bootstrap-menu.navbar-default .navbar-nav>.active>a:hover,
+#custom-bootstrap-menu.navbar-default .navbar-nav>.active>a:focus {
+    color: rgba(85, 85, 85, 1);
+    background-color: rgba(231, 231, 231, 1);
+}
+#custom-bootstrap-menu.navbar-default .navbar-toggle {
+    border-color: #ddd;
+}
+#custom-bootstrap-menu.navbar-default .navbar-toggle:hover,
+#custom-bootstrap-menu.navbar-default .navbar-toggle:focus {
+    background-color: #ddd;
+}
+#custom-bootstrap-menu.navbar-default .navbar-toggle .icon-bar {
+    background-color: #888;
+}
+#custom-bootstrap-menu.navbar-default .navbar-toggle:hover .icon-bar,
+#custom-bootstrap-menu.navbar-default .navbar-toggle:focus .icon-bar {
+    background-color: #572de0;
+	}
+.DTED_Lightbox_Wrapper, body {
+	padding-top: 70px;
+}
+input[type="text"], textarea {
+  background-color : yellow;
+	  font-size:12px;
+}
+tfoor.tr.th
+{
+    font-size:12px;
+}
+</style>	
+<script>
+var username      ="&username=HGNBFKJEZE";
+var passwd        ="&passwd=P1beS0vs..";
+var thedate       = moment().format('YYYY-MM-DD');
+var onedayafter   = moment().add(1, 'day').format('YYYY-MM-DD');
+
+//var thedate     = "2017-10-07";
+//var onedayafter = "2017-10-08";
+
+function seturl(fromdate,todate) {
+	base    = "https://test03-services.datafordeler.dk/system/EventMessages/1.0.0/custom"
+	from    = "?datefrom="+fromdate;
+	to      = "&dateto=" + todate;
+	format  = "&format=json";
+	url = base+from+to+format+username+passwd;
+	console.log(url);
+	return url
+}
+
+seturl(thedate,onedayafter);
+console.log(thedate);
+console.log(onedayafter);
+$(document).ready(function () {
+	
+	$.fn.dataTable.ext.errMode = '';
+	//url = "https://test03-services.datafordeler.dk/system/EventMessages/1.0.0/custom?datefrom=2017-10-09&dateto=2017-10-10&format=json&username=GTCXKEQSHC&password=Ford2010";
+	url = "https://test03-services.datafordeler.dk/system/EventMessages/1.0.0/custom?datefrom="+thedate+"&dateto="+onedayafter+"&format=json&username=HGNBFKJEZE&password=P1beS0vs..";
+	console.log(url);
+	var table = $('#eventtable').DataTable(
+		{
+			"ajax" 			: { "url"     : url ,
+										"dataSrc" : '',
+										},
+			"select"		: { style: 'os'
+										},
+			"deferRender": true,
+			"pageLength"	: 10,
+			 "order"		: [[ 2, "desc" ]],
+			"columns" 		: [ {"data" :  "Nr",
+											 render: function ( data, type, full, meta ) {
+												  //console.log(meta.row)
+													return meta.row} },
+											{"data" : "Id"},
+											{"data" : "Timestamp"},
+											{"data" : "Message.Grunddatabesked.Hændelsesbesked.Beskedkuvert.Filtreringsdata.beskedtype"},			              
+											{"data" : "Message.Grunddatabesked.Hændelsesbesked.Beskedkuvert.Filtreringsdata.Objektregistrering.0.objekttype"},
+											{"data" : "Message.Grunddatabesked.Hændelsesbesked.Beskedkuvert.Filtreringsdata.Objektregistrering.0.status"},
+											{"data" : "Message.Grunddatabesked.Hændelsesbesked.Beskedkuvert.Filtreringsdata.Objektregistrering.0.objekthandling"},
+											{"data" : "Message.Grunddatabesked.Hændelsesbesked.Beskedkuvert.Filtreringsdata.Objektregistrering.0.objektID"},
+											{"data" : "Message.Grunddatabesked.Hændelsesbesked.Beskedkuvert.Filtreringsdata.Objektregistrering.0.registreringstid"},
+											{"data" : "Message",
+											 "visible" : false}
+										]
+		}
+	)
+	.on( 'select', function ( e, dt, type, indexes ) {
+		//console.log("select "+type+' '+indexes);
+		if ( type === 'row' ) {
+			var message = table.rows( indexes ).data().pluck( 'Message' )[0];
+			$("#nr").text('Nummer '+indexes);
+			$("#id").text('Id '+table.rows( indexes ).data().pluck( 'Id' )[0]);
+			$("#message").text(JSON.stringify(message,undefined, 2));
+		}
+	} );
+
+	// Datapicker
+	$('input[name="datepicker"]').datepicker({
+			format: "yyyy-mm-dd",
+			language: "da",
+			endDate: thedate,
+			calendarWeeks: true,
+			autoclose: true
+	})
+	.on('changeDate',function(ev){
+		thedate         = $('input[name="datepicker"]').datepicker('getFormattedDate');
+		today           = moment(thedate).format('YYYY-MM-DD');
+		tomorrow        = moment(thedate).add(1,'day').format('YYYY-MM-DD');
+		console.log('Change the date '+thedate);
+		console.log(today+' '+tomorrow);
+		cleartable();
+		table.ajax.url( "https://test03-services.datafordeler.dk/system/EventMessages/1.0.0/custom?datefrom="+today+"&dateto="+tomorrow+"&format=json&username=HGNBFKJEZE&password=P1beS0vs.." ).load();
+	})
+	function cleartable() {
+		table
+			.clear()
+			.draw();
+	}
+	$("#refresh").click(function(){
+		console.log("refresh activated");
+		cleartable();
+		table
+			.ajax
+			.reload( null, false ); // user paging is not reset on reload	});
+	});
+	$("#clear").click(function(){
+		console.log("clear activated");
+		cleartable();
+	});
+
+
+});
+
+</script>
+</head>
+
+<body>
+
+<div class="container-fluid">
+	<div id="custom-bootstrap-menu" class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header"><a class="navbar-brand" href="#">HÆNDELSESLOG (DAGIM - Test03)</a>
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+					</button>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<form class="form-inline">
+		<label for="dp">Dato </label>
+		<div class="form-group">
+			<input type="text" id="dp" name="datepicker" value="2017-10-10" />
+		</div>
+		<div class="btn-group">
+			<button type="button" class="btn btn-success" aria-haspopup="true" aria-expanded="false" id="refresh">
+			Refresh</span>
+			</button>
+			<button type="button" class="btn btn-danger" aria-haspopup="true" aria-expanded="false" id="clear">
+				Clear</span>
+			</button>
+		</div>
+	</form>
+
+	<div>
+	<div class="row">	
+		<div class='col col-sm-12'>	
+			<table id="eventtable" class="display" width="100%">
+				<thead>
+					<tr>
+						<th>Nr</th>
+						<th>Id</th>
+						<th>Timestamp</th>
+						<th>Beskedtype</th>
+						<th>Objekttype</th>
+						<th>Status</th>
+						<th>Objekthandling</th>
+						<th>Objectid</tb>
+						<th>Registreringstid</th>
+						<th>Messsage</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>5124828</td>
+						<td>2017-09-21T15:06:26.395166+02:00</td>	
+						<td>BygningUpdate</td>
+						<td>Bygning</td>
+						<td>Endelig</td>
+						<td>bygningUUID</td>
+						<td>1110750987</td>
+						<td>2017-06-07T08:30:57.000000+02:00</td>
+						<td>Message</td>
+					</tr>
+					<tr>
+						<td>2/td>
+						<td>5124839</td>
+						<td>2017-09-21T15:06:51.585528+02:00</td>	
+						<td>BygningCreate</td>
+						<td>Bygning</td>
+						<td>Foreløbig</td>
+						<td>Create</td>
+						<td>1110750992</td>
+						<td>2017-06-07T07:42:08.000000+02:00</td>
+						<td>Message</td>
+					</tr>
+				</tbody>
+					
+			</table>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col col-sm-1">
+			<h3>JSON</h3>
+			<h4 id="nr">nr</h4>
+			<h4 id="id">id</h4>
+		</div>
+		<div class="col col-sm-11">
+			<pre id="message"></pre>
+		</div>
+	</div>
+</div>
+	
+</body>
+
+</html>

@@ -1,0 +1,177 @@
+<!--
+   index.html
+
+   Copyright 2017 Michael Michaelsen <mmi@mmi-Aspire-M1350>
+
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+   MA 02110-1301, USA.
+
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+	<title>Events v1.11</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<script
+  src="https://code.jquery.com/jquery-3.2.1.js"
+  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+  crossorigin="anonymous"></script>
+
+	<script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+
+	<!-- Include Date Range Picker -->
+	<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+
+	<!-- Include Date Picker -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/da.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/locales/bootstrap-datepicker.da.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css" /
+
+	<!-- Include Datatable -->
+	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" language="javascript" src="//cdn.datatables.net/select/1.2.1/js/dataTables.select.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
+
+  <!-- Event style and logic -->
+	<link rel="stylesheet" type="text/css" href="css/event.css"/>
+  <script src="js/event.js"></script>
+</head>
+
+<body>
+
+<div class="container-fluid">
+	<div id="custom-bootstrap-menu" class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header" ><a class="navbar-brand" href="#" id="title">Events v1.11</a>
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+					</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<form class="form-inline">
+			<label for="dp" class="form-control-label" >Dato </label>
+			<div class="form-group">
+				<input type="text" id="dp" name="datepicker" class="form-control"/>
+				<div class="btn-group">
+					<button type="button" class="btn btn-warning" aria-haspopup="true" aria-expanded="false" id="refresh">
+					Refresh
+					</button>
+					<button type="button" class="btn btn-danger" aria-haspopup="true" aria-expanded="false" id="clear">
+						Clear
+					</button>
+				</div>
+			</div>
+			<select class="selectpicker" data-style="btn-success" id="environment">
+				<option>test03</option>
+				<option>test06</option>
+				<option selected="selected">prod01</option>
+			</select>
+			<select class="selectpicker" data-style="btn-primary" id="register">
+				<option value="BBR" selected="selected">BBR</option>
+				<option value="CVR">CVR</option>
+				<option value="CPR">CPR</option>
+				<option value="DAGI">DAGI</option>
+				<option value="DAR">DAR</option>
+				<option value="DS">DS</option>
+				<option value="EBR">EBR</option>
+				<option value="EJF">EJF</option>
+				<option value="GeoDK">GeoDK</option>
+				<option value="GeoDKVektor">GeoDKVektor</option>
+				<option value="MU">MU</option>
+				<option value="VUR">VUR</option>
+			</select>
+		</form>
+	</div>
+
+	<div class="row">
+		<div class='col col-sm-12'>
+			<table id="eventtable" class="display" width="100%">
+				<thead>
+					<tr>
+						<th>Nr</th>
+						<th>Id</th>
+						<th>Objekt Timestamp</th>
+						<th>Beskedtype</th>
+						<th>Objekttype</th>
+						<th>Status</th>
+						<th>Objekthandling</th>
+						<th>Objectid</th>
+						<th>Registreringsaktør</th>
+						<th>Registreringstid</th>
+						<th>Messsage</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>5124828</td>
+						<td>2017-09-21T15:06:26.395166+02:00</td>
+						<td>BygningUpdate</td>
+						<td>Bygning</td>
+						<td>Endelig</td>
+						<td>bygningUUID</td>
+						<td>1110750987</td>
+						<th>DAGI</th>
+						<td>2017-06-07T08:30:57.000000+02:00</td>
+
+						<td>Message</td>
+					</tr>
+					<tr>
+						<td>2/td>
+						<td>5124839</td>
+						<td>2017-09-21T15:06:51.585528+02:00</td>
+						<td>BygningCreate</td>
+						<td>Bygning</td>
+						<td>Foreløbig</td>
+						<td>Create</td>
+						<td>1110750992</td>
+						<th>DAGI</th>
+						<td>2017-06-07T07:42:08.000000+02:00</td>
+
+						<td>Message</td>
+					</tr>
+				</tbody>
+
+			</table>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col col-sm-1">
+			<h3>JSON</h3>
+			<h4 id="nr">nr</h4>
+			<h4 id="id">id</h4>
+		</div>
+		<div class="col col-sm-11">
+			<pre id="message"></pre>
+		</div>
+	</div>
+</div>
+
+</body>
+
+</html>
